@@ -112,6 +112,10 @@ func getResponse(url string, token string, ch chan<- *Response) error {
 		return fmt.Errorf("Error: Received 404 status from Github API, ensure the repsository URL is correct. If it's a privare repository, also check the oauth token is correct")
 	}
 
+	if resp.StatusCode == 403 {
+		return fmt.Errorf("Error: Received 403")
+	}
+
 	ch <- &Response{url, resp, body, err}
 
 	return nil

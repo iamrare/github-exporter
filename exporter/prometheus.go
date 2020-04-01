@@ -29,7 +29,7 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	// Scrape the Data from Github
 	var err error
 	if len(data) == 0 || time.Now().After(lastChecked.Add(minutesBeforeCheck)) {
-		 data, err = e.gatherData()
+		data, err = e.gatherData()
 		lastChecked = time.Now()
 	}
 
@@ -39,7 +39,7 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	// Set prometheus gauge metrics using the data gathered
-	err = e.processMetrics(data,  ch)
+	err = e.processMetrics(data, ch)
 
 	if err != nil {
 		log.Error("Error Processing Metrics", err)
